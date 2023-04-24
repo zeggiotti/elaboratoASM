@@ -46,6 +46,9 @@ sel_len:	.long 3
 
 .type stampamenu, @function
 
+# Stampa tutto il cruscotto, anche in funzione del tipo di utente
+# @param %edi: riga su cui si sta lavorando
+
 stampamenu:
 	
 	
@@ -55,6 +58,7 @@ prima:
 	jne bprima
 
 rprima:	
+	# Setta il colore evidenziato
 	movl $4, %eax
 	movl $1, %ebx
 	leal red, %ecx
@@ -63,6 +67,7 @@ rprima:
 	jmp fprima
 
 bprima:
+	# Setta il colore bianco
 	movl $4, %eax
 	movl $1, %ebx
 	leal white, %ecx
@@ -70,6 +75,7 @@ bprima:
 	int $0x80
 	
 fprima:
+	# Stampa la prima riga
 	movl $4, %eax
 	movl $1, %ebx
 	leal primar, %ecx
@@ -77,6 +83,7 @@ fprima:
 	int $0x80
 
 seconda:
+	# Ripete come per la prima riga
 	movl $4, %eax
 	movl $1, %ebx
 	leal new_line, %ecx
