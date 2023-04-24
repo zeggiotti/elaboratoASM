@@ -6,5 +6,16 @@
 .type usermode, @function
 
 usermode:
-    topo gegio ha la mamma sabrina
+    movd -8(%esp),%ecx
+    movd $file name 2244, %edx
+
+
+    cmp %ecx,%edx
+    je supervisor
+    jne user
+
+supervisor:
+    ret 1
+user:
+    ret 0
     
