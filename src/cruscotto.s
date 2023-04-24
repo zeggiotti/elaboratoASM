@@ -40,9 +40,11 @@ menu:
 	movl sel_input_len, %edx
 	int $0x80
 	
+	# Controllo l'input messo dall'utente
 	leal sel_input, %esi
 	call checkinput
 	
+	# Se eax vale 25 il programma deve chiudersi
 	cmpl $25, %eax
 	je fine_prog
 	
@@ -110,10 +112,3 @@ else:
 end:
 	ret
 	
-	
-	
-	
-	
-	
-	
-
