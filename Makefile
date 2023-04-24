@@ -11,4 +11,3 @@ obj/cruscotto.o: src/cruscotto.s
 
 obj/stampa_menu.o: src/stampa_menu.s
 	as $(AS_FLAGS) src/stampa_menu.s -o obj/stampa_menu.o
-fdsf
