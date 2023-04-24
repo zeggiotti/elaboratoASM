@@ -114,6 +114,14 @@ fseconda:
 	leal secondar, %ecx
 	movl secondar_len, %edx
 	int $0x80
+	
+	call datetime
+	
+	movl $4, %eax
+	movl $1, %ebx
+	movl %esi, %ecx
+	movl $10, %edx
+	int $0x80
 
 terza:
 	movl $4, %eax
@@ -145,6 +153,16 @@ fterza:
 	movl $1, %ebx
 	leal terzar, %ecx
 	movl terzar_len, %edx
+	int $0x80
+	
+	call datetime
+	
+	movl %esi, %ecx
+	addl $11, %ecx
+	
+	movl $4, %eax
+	movl $1, %ebx
+	movl $8, %edx
 	int $0x80
 
 quarta:
