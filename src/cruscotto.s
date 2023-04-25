@@ -14,12 +14,16 @@ sel_len:	.long 2
 sel_input:	.ascii "0000"
 sel_input_len:	.long 4
 
+mode:		.long 0							# 0 per utente normale, 1 per SuperVisor
+
 .section .text
 
 	.global _start
 	
 _start:
-	
+	call usermode
+	movl %eax, mode
+
 	# Refresh della console
 	movl $4, %eax
 	movl $1, %ebx
