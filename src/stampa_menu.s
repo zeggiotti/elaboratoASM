@@ -12,6 +12,9 @@ clr_len:	.long . - clr
 primar:		.ascii "1. Setting automobile:"
 primar_len:	.long . - primar
 
+primar_supervisor:		.ascii "1. Setting automobile: (supervisor)"
+primar_supervisor_len:	.long . - primar_supervisor
+
 secondar:	.ascii "2. Data: "
 secondar_len:	.long . - secondar
 
@@ -77,11 +80,23 @@ bprima:
 	int $0x80
 	
 fprima:
+
+	movl smode, %eax
+	cmpl $0, %eax
+	jne fprima_sv 
 	# Stampa la prima riga
 	movl $4, %eax
 	movl $1, %ebx
 	leal primar, %ecx
 	movl primar_len, %edx
+	int $0x80
+	jmp seconda
+
+fprima_sv:
+	movl $4, %eax
+	movl $1, %ebx
+	leal primar_supervisor, %ecx
+	movl primar_supervisor_len, %edx
 	int $0x80
 
 seconda:
