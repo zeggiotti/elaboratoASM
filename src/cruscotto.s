@@ -35,6 +35,7 @@ menu:
 	
 	# Stampo il menu
 	movl riga, %edi
+	movl mode, %eax
 	call stampamenu
 	
 	# Chiedo di spostarsi sul menu
@@ -55,16 +56,26 @@ menu:
 	movl %edi, %ebx
 	addl %eax, %ebx
 
+check_riga_max:
+	movl mode, %ecx
+	cmpl $1, %ecx
+	jne max_riga_normalUser
+	movl $8, %ecx
+	jmp controllo_index
+
+max_riga_normalUser:
+	movl $6, %ecx
+
 controllo_index:
 	
 	cmpl $1, %ebx
 	jl min_index
-	cmpl $6, %ebx
+	cmpl %ecx, %ebx
 	jg max_index
 	jmp fine_controllo_index
 	
 min_index:
-	movl $6, %ebx
+	movl %ecx, %ebx
 	jmp fine_controllo_index
 
 max_index:

@@ -41,6 +41,8 @@ nl_len:		.long 1
 selection:	.ascii " <-"
 sel_len:	.long 3
 
+smode:		.long 0
+
 .section .text
 	.global stampamenu
 
@@ -50,7 +52,7 @@ sel_len:	.long 3
 # @param %edi: riga su cui si sta lavorando
 
 stampamenu:
-	
+	movl %eax, smode
 	
 prima:	
 
@@ -260,6 +262,75 @@ fsesta:
 	leal sestar, %ecx
 	movl sestar_len, %edx
 	int $0x80
+
+	movl smode, %eax
+	cmpl $0, %eax
+	je end
+
+settima:
+	movl $4, %eax
+	movl $1, %ebx
+	leal new_line, %ecx
+	movl nl_len, %edx
+	int $0x80
+
+	cmpl $7, %edi
+	jne bsettima
+
+rsettima:	
+	movl $4, %eax
+	movl $1, %ebx
+	leal red, %ecx
+	movl red_len, %edx
+	int $0x80
+	jmp fsettima
+
+bsettima:
+	movl $4, %eax
+	movl $1, %ebx
+	leal white, %ecx
+	movl white_len, %edx
+	int $0x80
+	
+fsettima:
+	movl $4, %eax
+	movl $1, %ebx
+	leal settimar, %ecx
+	movl settimar_len, %edx
+	int $0x80
+
+ottava:
+	movl $4, %eax
+	movl $1, %ebx
+	leal new_line, %ecx
+	movl nl_len, %edx
+	int $0x80
+
+	cmpl $8, %edi
+	jne bottava
+
+rottava:	
+	movl $4, %eax
+	movl $1, %ebx
+	leal red, %ecx
+	movl red_len, %edx
+	int $0x80
+	jmp fottava
+
+bottava:
+	movl $4, %eax
+	movl $1, %ebx
+	leal white, %ecx
+	movl white_len, %edx
+	int $0x80
+	
+fottava:
+	movl $4, %eax
+	movl $1, %ebx
+	leal ottavar, %ecx
+	movl ottavar_len, %edx
+	int $0x80
+
 
 end:
 	movl $4, %eax
