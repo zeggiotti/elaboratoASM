@@ -19,7 +19,7 @@ sel_input_len:	.long 4
 	.global _start
 	
 _start:
-
+	
 	# Refresh della console
 	movl $4, %eax
 	movl $1, %ebx
