@@ -6,16 +6,9 @@
 .type usermode, @function
 
 usermode:
-    movd -8(%esp),%ecx
-    movd $file name 2244, %edx
-
+    movl -8(%esp),%ecx
 
     cmp %ecx,%edx
-    je supervisor
-    jne user
 
-supervisor:
-    ret 1
-user:
-    ret 0
-    
+    ret
+
