@@ -12,4 +12,4 @@ usermode:
     cmp %ecx,%edx
 
     ret
-
+-
