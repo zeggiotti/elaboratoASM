@@ -52,10 +52,14 @@ menu:
 	# Se eax vale 25 il programma deve chiudersi
 	cmpl $25, %eax
 	je fine_prog
-	
+
+	cmpl $18, %eax 
+	je scelta_sottomenu
+
 	movl %edi, %ebx
 	addl %eax, %ebx
 
+# Modifica la riga corrente nel caso sia stata inserita freccia su/giu
 check_riga_max:
 	movl mode, %ecx
 	cmpl $1, %ecx
@@ -85,11 +89,19 @@ max_index:
 fine_controllo_index:
 	movl %ebx, riga
 	jmp _start
+
+scelta_sottomenu:
+	movl riga, %eax
+	cmpl $8, %eax
+	jne altrimenti
+	call cruscotto_gomme
+
+altrimenti:
+	jmp _start
 	
 fine_prog:
 	movl $1, %eax
 	int $0x80
-
 
 	
 .type checkinput, @function
@@ -113,10 +125,16 @@ up:
 	
 down:
 	cmpb $66, 2(%esi)
-	jne end
+	jne right
 	movl $1, %eax
 	jmp end
 	
+right:
+	cmpb $67, 2(%esi)
+	jne else
+	movl $18, %eax
+	jmp end
+
 killprog:
 	movl $25, %eax
 	jmp end
