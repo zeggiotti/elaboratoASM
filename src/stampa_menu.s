@@ -21,10 +21,10 @@ secondar_len:	.long . - secondar
 terzar:		.ascii "3. Ora: "
 terzar_len:	.long . - terzar
 
-quartar:	.ascii "4. Blocco automatico porte:"
+quartar:	.ascii "4. Blocco automatico porte: "
 quartar_len:	.long . - quartar
 
-quintar:	.ascii "5. Back-home: ON"
+quintar:	.ascii "5. Back-home: "
 quintar_len:	.long . - quintar
 
 sestar:		.ascii "6. Check olio"
@@ -218,9 +218,10 @@ fquarta:
 	movl $1, %ebx
 	leal quartar, %ecx
 	movl quartar_len, %edx
-	leal on, %ecx
-	movl on_len, %edx
 	int $0x80
+	#leal on, %ecx
+	#movl on_len, %edx
+	#int $0x80
 
 quinta:
 	movl $4, %eax
