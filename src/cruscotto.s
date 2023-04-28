@@ -16,6 +16,8 @@ sel_input_len:	.long 4
 
 mode:		.long 0							# 0 per utente normale, 1 per SuperVisor
 
+frecce:		.long 3							
+
 .section .text
 
 	.global _start
