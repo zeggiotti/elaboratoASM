@@ -109,8 +109,14 @@ altrimenti_1:
 
 altrimenti_2:
 	cmpl $5, %eax
-	jne fine_scelta
+	jne altrimenti_3
 	call stampasottomenu5
+	jmp fine_scelta
+
+altrimenti_3:
+	cmpl $7, %eax
+	jne fine_scelta
+	call cruscotto_frecce
 	jmp fine_scelta
 
 fine_scelta:
