@@ -69,9 +69,9 @@ contaCaratteri:
     cmpb $10, %al
     je fineConta
     cmpb $48, %al
-    jl ...
+    jl nan
     cmpb $57, %al
-    jg ...
+    jg nan
     incl %edx
 
 fineConta:
@@ -111,6 +111,9 @@ minf:
 
     movl $2, %eax
     jmp fParse 
+
+nan:
+    movl frecce, %eax
 
 fParse:
 
