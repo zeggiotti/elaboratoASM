@@ -13,7 +13,8 @@
     msg2:       .ascii "Inserisci un numero per modificare: "
     msg2_len:   .long . - msg2
 
-    input:      .ascii "00"
+    inp:      .ascii "0000000000000000000"
+    inp_len:  .long . - inp
 
 .section .text 
 
@@ -55,8 +56,8 @@ cruscotto_frecce:
 
     movl $3, %eax
     movl $0, %ebx
-    leal input, %ecx
-    movl $2, %edx
+    leal inp, %ecx
+    movl inp_len, %edx
     int $0x80
 
     movl $0, %edx
@@ -67,42 +68,42 @@ cruscotto_frecce:
     cmpb $45, (%ecx)
     je minf
 
-contaCaratteri:
+checkCaratteri:
     
-    cmpl $2, %edx 
-    je fineConta
+    cmpl inp_len, %edx 
+    je trova_nz
     movb (%ecx, %edx), %al
     cmpb $10, %al
-    je fineConta
+    je trova_nz
     cmpb $48, %al
     jl nan
     cmpb $57, %al
     jg nan
     incl %edx
-    jmp contaCaratteri
+    jmp checkCaratteri
 
-fineConta:
-
-    movl $0, %eax
-    movl $1, %ebx
-    movl $0, %edi
-
-atoi:
-
+trova_nz:
+    movl %edx, %edi
     decl %edx
-    movb (%ecx, %edx), %al
+
+loop_zeri:
+    decl %edx
+    cmpl $-1, %edx
+    je guarda_ultima
+    cmpb $48, (%ecx,%edx)
+    je loop_zeri
+    jmp maxf
+
+guarda_ultima:
+    movl %edi, %edx
+    decl %edx
+    movb (%ecx,%edx), %al
     subb $48, %al
-    mulb %bl
-    addl %eax, %edi
-    movl $0, %eax
-    movl $10, %ebx
-    cmpl $0, %edx
-    je fine_atoi
-    jmp atoi
+    jmp controllo_val
 
-fine_atoi:
 
-    movl %edi, %eax
+
+controllo_val:
     cmpl $5, %eax
     jg maxf
     cmpl $2, %eax
