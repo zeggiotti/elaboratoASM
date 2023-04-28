@@ -61,6 +61,12 @@ cruscotto_frecce:
 
     movl $0, %edx
 
+    cmpb $10, (%ecx)
+    je nan
+
+    cmpb $45, (%ecx)
+    je minf
+
 contaCaratteri:
     
     cmpl $2, %edx 
@@ -73,6 +79,7 @@ contaCaratteri:
     cmpb $57, %al
     jg nan
     incl %edx
+    jmp contaCaratteri
 
 fineConta:
 
