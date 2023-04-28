@@ -216,15 +216,8 @@ bquarta:
 fquarta:
 	movl $4, %eax
 	movl $1, %ebx
-	leal quartar_on, %ecx
-	movl quartar_on_len, %edx
-	int $0x80
-
-fquarta_off:
-	movl $4, %eax
-	movl $1, %ebx
-	leal quartar_off, %ecx
-	movl quartar_off_len, %edx
+	leal quartar, %ecx
+	movl quartar_len, %edx
 	int $0x80
 
 quinta:
@@ -243,7 +236,7 @@ rquinta:
 	leal red, %ecx
 	movl red_len, %edx
 	int $0x80
-	jmp fquinta_on
+	jmp fquinta
 
 bquinta:
 	movl $4, %eax
@@ -252,18 +245,11 @@ bquinta:
 	movl white_len, %edx
 	int $0x80
 	
-fquinta_on:
+fquinta:
 	movl $4, %eax
 	movl $1, %ebx
-	leal quintar_on, %ecx
-	movl quintar_on_len, %edx
-	int $0x80
-
-fquinta_off:
-	movl $4, %eax
-	movl $1, %ebx
-	leal quintar_off, %ecx
-	movl quintar_off_len, %edx
+	leal quintar, %ecx
+	movl quintar_len, %edx
 	int $0x80
 
 sesta:
