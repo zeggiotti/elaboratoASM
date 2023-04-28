@@ -4,7 +4,7 @@ clr:		.ascii "\033[H\033[2J"
 clr_len:	.long . - clr
 
 msg:        .ascii "1. Back-home:\n"
-msg_len:    .long . - msg_on
+msg_len:    .long . - msg
 
 input:      .ascii "00000"
 input_len:  .long . - input
