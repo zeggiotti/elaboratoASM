@@ -21,11 +21,17 @@ secondar_len:	.long . - secondar
 terzar:		.ascii "3. Ora: "
 terzar_len:	.long . - terzar
 
-quartar:	.ascii "4. Blocco automatico porte: "
-quartar_len:	.long . - quartar
+quartar_on:	.ascii "4. Blocco automatico porte: ON"
+quartar_on_len:	.long . - quartar_on
 
-quintar:	.ascii "5. Back-home: "
-quintar_len:	.long . - quintar
+quartar_off:	.ascii "4. Blocco automatico porte: OFF"
+quartar_off_len:	.long . - quartar_off
+
+quintar_on:	.ascii "5. Back-home: ON"
+quintar_on_len:	.long . - quintar_on
+
+quintar_off:	.ascii "5. Back-home: OFF"
+quintar_off_len:	.long . - quintar_off
 
 sestar:		.ascii "6. Check olio"
 sestar_len:	.long . - sestar
@@ -198,7 +204,7 @@ rquarta:
 	leal red, %ecx
 	movl red_len, %edx
 	int $0x80
-	jmp fquarta
+	jmp fquarta_on
 
 bquarta:
 	movl $4, %eax
@@ -207,11 +213,18 @@ bquarta:
 	movl white_len, %edx
 	int $0x80
 	
-fquarta:
+fquarta_on:
 	movl $4, %eax
 	movl $1, %ebx
-	leal quartar, %ecx
-	movl quartar_len, %edx
+	leal quartar_on, %ecx
+	movl quartar_on_len, %edx
+	int $0x80
+
+fquarta_off:
+	movl $4, %eax
+	movl $1, %ebx
+	leal quartar_off, %ecx
+	movl quartar_off_len, %edx
 	int $0x80
 
 quinta:
@@ -230,7 +243,7 @@ rquinta:
 	leal red, %ecx
 	movl red_len, %edx
 	int $0x80
-	jmp fquinta
+	jmp fquinta_on
 
 bquinta:
 	movl $4, %eax
@@ -239,11 +252,18 @@ bquinta:
 	movl white_len, %edx
 	int $0x80
 	
-fquinta:
+fquinta_on:
 	movl $4, %eax
 	movl $1, %ebx
-	leal quintar, %ecx
-	movl quintar_len, %edx
+	leal quintar_on, %ecx
+	movl quintar_on_len, %edx
+	int $0x80
+
+fquinta_off:
+	movl $4, %eax
+	movl $1, %ebx
+	leal quintar_off, %ecx
+	movl quintar_off_len, %edx
 	int $0x80
 
 sesta:
