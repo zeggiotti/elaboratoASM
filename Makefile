@@ -3,8 +3,8 @@ LD_FLAGS = -m elf_i386
 
 all: bin/main
 
-bin/main: obj/cruscotto.o obj/stampa_menu.o obj/datetime.o obj/usermode.o obj/cruscotto_gomme.o
-	ld $(LD_FLAGS) obj/cruscotto.o obj/stampa_menu.o obj/datetime.o obj/usermode.o obj/cruscotto_gomme.o -o bin/main
+bin/main: obj/cruscotto.o obj/stampa_menu.o obj/datetime.o obj/usermode.o obj/cruscotto_gomme.o obj/stampa_sotto_menu_4.o obj/stampa_sotto_menu_5.o
+	ld $(LD_FLAGS) obj/cruscotto.o obj/stampa_menu.o obj/datetime.o obj/usermode.o obj/cruscotto_gomme.o obj/stampa_sotto_menu_4.o obj/stampa_sotto_menu_5.o -o bin/main
 
 obj/cruscotto.o: src/cruscotto.s
 	as $(AS_FLAGS) src/cruscotto.s -o obj/cruscotto.o
@@ -20,3 +20,9 @@ obj/usermode.o: src/usermode.s
 
 obj/cruscotto_gomme.o: src/cruscotto_gomme.s
 	as $(AS_FLAGS) src/cruscotto_gomme.s -o obj/cruscotto_gomme.o
+
+obj/stampa_sotto_menu_4.o: src/stampa_sotto_menu_4.s
+	as $(AS_FLAGS) src/stampa_sotto_menu_4.s -o obj/stampa_sotto_menu_4.o
+
+obj/stampa_sotto_menu_5.o: src/stampa_sotto_menu_5.s
+	as $(AS_FLAGS) src/stampa_sotto_menu_5.s -o obj/stampa_sotto_menu_5.o

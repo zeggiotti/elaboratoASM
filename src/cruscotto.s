@@ -95,10 +95,23 @@ fine_controllo_index:
 scelta_sottomenu:
 	movl riga, %eax
 	cmpl $8, %eax
-	jne altrimenti
+	jne altrimenti_1
 	call cruscotto_gomme
+	jmp fine_scelta
 
-altrimenti:
+altrimenti_1:
+	cmpl $4, %eax
+	jne altrimenti_2
+	call stampasottomenu4
+	jmp fine_scelta
+
+altrimenti_2:
+	cmpl $5, %eax
+	jne fine_scelta
+	call stampasottomenu5
+	jmp fine_scelta
+
+fine_scelta:
 	jmp _start
 	
 fine_prog:
