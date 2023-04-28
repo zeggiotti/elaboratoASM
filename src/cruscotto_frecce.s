@@ -99,11 +99,7 @@ guarda_ultima:
     decl %edx
     movb (%ecx,%edx), %al
     subb $48, %al
-    jmp controllo_val
-
-
-
-controllo_val:
+    
     cmpl $5, %eax
     jg maxf
     cmpl $2, %eax
