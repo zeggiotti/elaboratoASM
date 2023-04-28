@@ -83,10 +83,12 @@ checkCaratteri:
     jmp checkCaratteri
 
 trova_nz:
+    
     movl %edx, %edi
     decl %edx
 
 loop_zeri:
+    
     decl %edx
     cmpl $-1, %edx
     je guarda_ultima
@@ -95,6 +97,7 @@ loop_zeri:
     jmp maxf
 
 guarda_ultima:
+    
     movl %edi, %edx
     decl %edx
     movb (%ecx,%edx), %al
@@ -117,6 +120,7 @@ minf:
     jmp fParse 
 
 nan:
+    
     movl frecce, %eax
 
 fParse:
