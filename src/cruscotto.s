@@ -116,7 +116,9 @@ altrimenti_2:
 altrimenti_3:
 	cmpl $7, %eax
 	jne fine_scelta
+	movl frecce, %eax
 	call cruscotto_frecce
+	movl %eax, frecce
 	jmp fine_scelta
 
 fine_scelta:
