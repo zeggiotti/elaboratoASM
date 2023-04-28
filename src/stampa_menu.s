@@ -46,8 +46,6 @@ sel_len:	.long 3
 
 smode:		.long 0
 
-on_off_mode: .long 0
-
 on:		.ascii "ON"
 on_len:	.long . - on
 
