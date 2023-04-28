@@ -21,17 +21,11 @@ secondar_len:	.long . - secondar
 terzar:		.ascii "3. Ora: "
 terzar_len:	.long . - terzar
 
-quartar_on:	.ascii "4. Blocco automatico porte: ON"
-quartar_on_len:	.long . - quartar_on
+quartar:	.ascii "4. Blocco automatico porte: ON"
+quartar_len:	.long . - quartar
 
-quartar_off:	.ascii "4. Blocco automatico porte: OFF"
-quartar_off_len:	.long . - quartar_off
-
-quintar_on:	.ascii "5. Back-home: ON"
-quintar_on_len:	.long . - quintar_on
-
-quintar_off:	.ascii "5. Back-home: OFF"
-quintar_off_len:	.long . - quintar_off
+quintar:	.ascii "5. Back-home: ON"
+quintar_len:	.long . - quintar
 
 sestar:		.ascii "6. Check olio"
 sestar_len:	.long . - sestar
@@ -51,6 +45,14 @@ selection:	.ascii " <-"
 sel_len:	.long 3
 
 smode:		.long 0
+
+on_off_mode: .long 0
+
+on:		.ascii "ON"
+on_len:	.long . - on
+
+off:		.ascii "OFF"
+off_len:	.long . - off
 
 .section .text
 	.global stampamenu
@@ -204,7 +206,7 @@ rquarta:
 	leal red, %ecx
 	movl red_len, %edx
 	int $0x80
-	jmp fquarta_on
+	jmp fquarta
 
 bquarta:
 	movl $4, %eax
@@ -213,7 +215,7 @@ bquarta:
 	movl white_len, %edx
 	int $0x80
 	
-fquarta_on:
+fquarta:
 	movl $4, %eax
 	movl $1, %ebx
 	leal quartar_on, %ecx
