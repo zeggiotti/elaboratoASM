@@ -20,5 +20,3 @@ obj/usermode.o: src/usermode.s
 
 obj/cruscotto_gomme.o: src/cruscotto_gomme.s
 	as $(AS_FLAGS) src/cruscotto_gomme.s -o obj/cruscotto_gomme.o
-
-jdfjsdklf
