@@ -13,7 +13,7 @@
     msg2:       .ascii "Inserisci un numero per modificare: "
     msg2_len:   .long . - msg2
 
-    input:      .ascii "0000"
+    input:      .ascii "00"
 
 .section .text 
 
@@ -56,8 +56,79 @@ cruscotto_frecce:
     movl $3, %eax
     movl $0, %ebx
     leal input, %ecx
-    movl , %edx
+    movl $2, %edx
     int $0x80
+
+    movl $0, %edx
+
+contaCaratteri:
+    
+    cmpl $2, %edx 
+    je fineConta
+    movb (%ecx, %edx), %al
+    cmpb $10, %al
+    je fineConta
+    cmpb $48, %al
+    jl ...
+    cmpb $57, %al
+    jg ...
+    incl %edx
+
+fineConta:
+
+    movl $0, %eax
+    movl $1, %ebx
+    movl $0, %edi
+
+atoi:
+
+    decl %edx
+    movb (%ecx, %edx), %al
+    subb $48, %al
+    mulb %bl
+    addl %eax, %edi
+    movl $0, %eax
+    movl $10, %ebx
+    cmpl $0, %edx
+    je fine_atoi
+    jmp atoi
+
+fine_atoi:
+
+    movl %edi, %eax
+    cmpl $5, %eax
+    jg maxf
+    cmpl $2, %eax
+    jl minf
+    jmp fParse
+
+maxf:
+
+    movl $5, %eax
+    jmp fParse
+
+minf:
+
+    movl $2, %eax
+    jmp fParse 
+
+fParse:
+
+    ret
+
+
+
+
+
+
+
+
+
+        
+
+    
+
+
 
 
 
