@@ -13,10 +13,8 @@
     msg2:       .ascii "Inserisci un numero per modificare: "
     msg2_len:   .long . - msg2
 
-    inp:      .ascii "0000000000000000000000000000000000"
+    inp:      .ascii "0000000000000000000"
     inp_len:  .long . - inp
-
-    negative: .long 0
 
 .section .text 
 
@@ -67,19 +65,9 @@ cruscotto_frecce:
     cmpb $10, (%ecx)
     je nan
 
-    # Controlla se il primo carattere è meno (-)
     cmpb $45, (%ecx)
-    je trovato_neg
-    movl $0, negative
-    jmp checkCaratteri
+    je minf
 
-trovato_neg:
-
-    movl $1, negative
-    incl %ecx
-
-# Si controllano i caratteri, se sono tutti numeri si procede.
-# In edx ci sarà il numero di caratteri
 checkCaratteri:
     
     cmpl inp_len, %edx 
@@ -96,14 +84,9 @@ checkCaratteri:
 
 trova_nz:
     
-    cmpl $1, negative
-    je minf
-
     movl %edx, %edi
     decl %edx
 
-# Si torna all'indietro nella stringa.
-# Se si trova un numero diverso da 0 si controlla solo l'ultima
 loop_zeri:
     
     decl %edx

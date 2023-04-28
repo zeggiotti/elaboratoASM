@@ -52,6 +52,10 @@ on_len:	.long . - on
 off:		.ascii "OFF"
 off_len:	.long . - off
 
+on_off_mode_4: .long 1						# 0 per stato off, 1 per stato on. Riga 4 del cruscotto
+
+on_off_mode_5: .long 1						# 0 per stato off, 1 per stato on. Riga 5 del cruscotto
+
 .section .text
 	.global stampamenu
 
@@ -62,8 +66,10 @@ off_len:	.long . - off
 
 stampamenu:
 	movl %eax, smode
+	movl %ebx, on_off_mode_4
+	movl %ecx, on_off_mode_5
 	
-prima:	
+prima:
 
 	cmpl $1, %edi
 	jne bprima
@@ -219,9 +225,23 @@ fquarta:
 	leal quartar, %ecx
 	movl quartar_len, %edx
 	int $0x80
-	#leal on, %ecx
-	#movl on_len, %edx
-	#int $0x80
+
+quarta_on:
+	cmpl $0, on_off_mode_4
+	je quarta_off
+	movl $4, %eax
+	movl $1, %ebx
+	leal on, %ecx
+	movl on_len, %edx
+	int $0x80
+	jmp quinta
+
+quarta_off:
+	movl $4, %eax
+	movl $1, %ebx
+	leal off, %ecx
+	movl off_len, %edx
+	int $0x80
 
 quinta:
 	movl $4, %eax
@@ -253,6 +273,23 @@ fquinta:
 	movl $1, %ebx
 	leal quintar, %ecx
 	movl quintar_len, %edx
+	int $0x80
+
+quinta_on:
+	cmpl $0, on_off_mode_5
+	je quinta_off
+	movl $4, %eax
+	movl $1, %ebx
+	leal on, %ecx
+	movl on_len, %edx
+	int $0x80
+	jmp sesta
+
+quinta_off:
+	movl $4, %eax
+	movl $1, %ebx
+	leal off, %ecx
+	movl off_len, %edx
 	int $0x80
 
 sesta:

@@ -18,9 +18,9 @@ mode:		.long 0							# 0 per utente normale, 1 per SuperVisor
 
 frecce:		.long 3
 
-on_off_mode_4: .long 0
+on_off_mode_4: .long 1						# 0 per stato off, 1 per stato on. Riga 4 del cruscotto
 
-on_off_mode_5: .long 0
+on_off_mode_5: .long 1						# 0 per stato off, 1 per stato on. Riga 5 del cruscotto
 
 .section .text
 
@@ -42,6 +42,8 @@ menu:
 	# Stampo il menu
 	movl riga, %edi
 	movl mode, %eax
+	movl on_off_mode_4, %ebx
+	movl on_off_mode_5, %ecx
 	call stampamenu
 	
 	# Chiedo di spostarsi sul menu
@@ -106,13 +108,17 @@ scelta_sottomenu:
 altrimenti_1:
 	cmpl $4, %eax
 	jne altrimenti_2
+	movl on_off_mode_4, %ebx
 	call stampasottomenu4
+	movl %ebx, on_off_mode_4
 	jmp fine_scelta
 
 altrimenti_2:
 	cmpl $5, %eax
 	jne altrimenti_3
+	movl on_off_mode_5, %ecx
 	call stampasottomenu5
+	movl %ecx, on_off_mode_5
 	jmp fine_scelta
 
 altrimenti_3:
