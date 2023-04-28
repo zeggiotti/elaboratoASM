@@ -3,8 +3,11 @@
 clr:		.ascii "\033[H\033[2J"
 clr_len:	.long . - clr
 
-msg:        .ascii "1. Back-home:\n"
-msg_len:    .long . - msg
+msg_on:        .ascii "1. Back-home: ON\n"
+msg_on_len:    .long . - msg_on
+
+msg_off:        .ascii "1. Back-home: OFF\n"
+msg_off_len:    .long . - msg_off
 
 input:      .ascii "00000"
 input_len:  .long . - input
@@ -23,8 +26,8 @@ stampasottomenu5:
 
     movl $4, %eax
     movl $1, %ebx
-    leal msg, %ecx
-    movl msg_len, %edx
+    leal msg_on, %ecx
+    movl msg_on_len, %edx
     int $0x80
 
     movl $3, %eax
