@@ -18,7 +18,9 @@ mode:		.long 0							# 0 per utente normale, 1 per SuperVisor
 
 frecce:		.long 3
 
-on_off_mode: .long 0
+on_off_mode_4: .long 0
+
+on_off_mode_5: .long 0
 
 .section .text
 
