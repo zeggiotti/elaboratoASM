@@ -1,0 +1,45 @@
+\documentclass{article}
+
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+\usepackage[italian]{babel}
+
+% Set page size and margins
+% Replace `letterpaper' with `a4paper' for UK/EU standard size
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\newcommand*{\escape}[1]{\texttt{\textbackslash#1}}
+
+\title{Relazione Elaborato ASM}
+\author{Brutti Elia - Contri Emanuele - Zeggiotti Ettore}
+
+\begin{document}
+\maketitle
+
+\section{Scelte progettuali}
+Nello fase di sviluppo del codice assembly il gruppo ha notato la necessità di suddividere il codice in funzioni. Tali funzioni sono state spesso aggiunte in file separati per aumentare la leggibilità del codice.
+\\
+La scelta progettuale più evidente dal punto di vista dell'utente riguarda l'interfaccia grafica. Si è supposto che il menù debba essere sempre visualizzato completamente, e che la riga selezionata debba essere in qualche modo evidenziata. Per implementare questa funzionalità sono state utilizzate stringhe speciali, che se stampate a video possono, ad esempio, \emph{pulire} la console oppure impostare il colore con cui stampare i caratteri, che di default è bianco.
+
+\section{Variabili utilizzate e il loro scopo}
+Qui si elencano le variabili più importanti per la realizzazione del progetto.
+\begin{itemize}
+    \item \textbf{clr/clr-len}: si tratta della stringa "\escape{0}33[H\escape{0}33[2J" che se stampata pulisce la console e la rispettiva lunghezza.
+    \item \textbf{new-line/nl-len}: la stringa "\escape{n}" che va a capo, con la lunghezza.
+    \item \textbf{sel-input/sel-input-len}: la stringa che tiene l'input inserito dall'utente e la sua lunghezza fissata a 4 caratteri.
+    \item \textbf{riga}: tiene traccia della riga del cruscotto selezionata.
+    \item \textbf{mode}: variabile usata come booleano, vale 0 se l'utente è normale, vale 1 se è in modalità SuperVisor. Di default vale 0 (utente normale).
+    \item \textbf{frecce}: salva il numero di frecce di direzione impostate. Di default vale 3.
+    \item \textbf{on-off-mode4/on-off-mode5}: salvano lo stato del blocco delle porte e del Back-home rispettivamente.
+    \item \textbf{sec-normale/sec-bisestile}: numero di secondi in un anno normale e in un anno bisestile, per il calcolo della data e dell'ora.
+    \item \textbf{epoch}: data corrente in formato Epoch, chiesta al Sistema Operativo.
+    \item \textbf{red/red-len}: stringa "\escape{0}33[36m" che se stampata imposta il colore dei successivi caratteri, nella riga del cruscotto selezionata.
+    \item \textbf{white/white-len}: stringa "\escape{0}33[37m" che imposta il colore dei caratteri a bianco.
+    
+\end{itemize}
+
+\end{document}
