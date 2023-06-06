@@ -23,7 +23,9 @@
 \section{Scelte progettuali}
 Nello fase di sviluppo del codice assembly il gruppo ha notato la necessità di suddividere il codice in funzioni. Tali funzioni sono state spesso aggiunte in file separati per aumentare la leggibilità del codice.
 \\
-La scelta progettuale più evidente dal punto di vista dell'utente riguarda l'interfaccia grafica. Si è supposto che il menù debba essere sempre visualizzato completamente, e che la riga selezionata debba essere in qualche modo evidenziata. Per implementare questa funzionalità sono state utilizzate stringhe speciali, che se stampate a video possono, ad esempio, \emph{pulire} la console oppure impostare il colore con cui stampare i caratteri, che di default è bianco.
+La scelta progettuale più evidente dal punto di vista dell'utente riguarda l'interfaccia grafica. Si è supposto che il menù debba essere sempre visualizzato completamente, e che la riga selezionata debba essere evidenziata. Per implementare questa funzionalità sono state utilizzate stringhe speciali, che se stampate a video possono, ad esempio, \emph{pulire} la console oppure impostare il colore con cui stampare i caratteri, che di default è bianco.
+\\
+Inoltre, è stato deciso che le funzioni debbano passarsi i parametri e i valori di ritorno mediante i registri della CPU. Questo per facilitare il meccanismo evitando di dover andare a pescare i valori dallo stack ad ogni chiamata.
 
 \section{Variabili utilizzate e il loro scopo}
 Qui si elencano le variabili più importanti per la realizzazione del progetto.
@@ -40,6 +42,20 @@ Qui si elencano le variabili più importanti per la realizzazione del progetto.
     \item \textbf{red/red-len}: stringa "\escape{0}33[36m" che se stampata imposta il colore dei successivi caratteri, nella riga del cruscotto selezionata.
     \item \textbf{white/white-len}: stringa "\escape{0}33[37m" che imposta il colore dei caratteri a bianco.
     
+\end{itemize}
+
+\section{Funzioni e passaggio dei parametri}
+Il codice è stato scritto in modo che le funzioni si passino i parametri attraverso i registri della CPU.
+
+\begin{itemize}
+    \item \textbf{checkinput}: controlla se in input è stata inserita una freccia su, giù o destra. Richiede l'indirizzo del primo carattere della stringa in input nel registro esi e produce in eax un valore che incrementa o decrementa l'indice di riga, lo mantiene invariato, oppure fa capire che si è entrati in un sottomenu.
+    \item \textbf{usermode}: controlla i paramentri passati al programma nello stack e mette in eax un flag che dice se l'utente è di tipo normale o SuperVisor.
+    \item \textbf{datetime}: mette in esi l'indirizzo alla stringa contenente la data e ora correnti.
+    \item \textbf{itoa}: converte un numero in stringa. Vuole il numero in eax, la lunghezza della stringa in ecx e l'indirizzo in cui memorizzare il risultato in esi.
+    \item \textbf{stampamenu}: stampa il cruscotto in funzione del tipo di utente. Richiede in eax il tipo di utente, in ebx ed ecx lo stato ON/OFF delle righe 4 e 5 rispettivamente, e in edi la riga corrente selezionata dall'utente.
+    \item \textbf{on-off-mode-4/on-off-mode-5}: stampano il sotto menu della riga 4 e 5. Vogliono in ebx e in ecx rispettivamente lo stato ON/OFF da modificare eventualmente. Salvano lo stato ON/OFF in ebx ed ecx.
+    \item \textbf{cruscotto-frecce}: vuole il numero di frecce impostato in eax e, dopo averlo chiesto all'utente ed eventualmente portanto dentro agli estremi dell'intervallo di valori accettabili, restituisce il nuovo numero di frecce in eax.
+    \item \textbf{cruscotto-gomme}: stampa il sotto menu del reset pressione gomme.
 \end{itemize}
 
 \end{document}
